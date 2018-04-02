@@ -1,17 +1,18 @@
-## Put comments here that give an overall description of what your
-## functions do
+## These functions are used to compute the Matrix as well as its inverse
+## 
 
-## Write a short comment describing this function
+##This function returns the matrix 
 
-makeCacheMatrix <- function(x = matrix()) {
+makeCacheMatrix <- function(x = matrix()) {    #function initialisation where x is a matrix 
   m <- NULL
-  set <- function(y) {
+  set <- function(y) {                         #set takes the matrix to be passed on
     x <<- y
     m <<- NULL
   }
-  get <- function() x
-  setinv <- function(solve) m <<- solve
-  getinv <- function() m
+  get <- function() x                           #get, returns the matrix
+  setinv <- function(solve) m <<- solve         #setinv,one can compute and set the inv manually
+  
+  getinv <- function() m                        #getinv,this displays the inv matrix set originally by the user
   list(set = set, get = get,
        setinv = setinv,
        getinv = getinv)
@@ -19,11 +20,14 @@ makeCacheMatrix <- function(x = matrix()) {
 }
 
 
-## Write a short comment describing this function
+## This function calculates the inverse of a matrix where we used the solve(a,b,...)func
+#here we pass matrix x in place of a ,since b isnt passed on ,it assumes b to be an identity matirx
+#hence computing the inverse
 
-cacheSolve <- function(x, ...) {
-  m <- x$getinv()
-  if(!is.null(m)) {
+cacheSolve <- function(x, ...) {              
+  m <- x$getinv()                            #get inv from the list present 
+  if(!is.null(m)) {                          # check and accordingly print 'getting cached data' and return the manually 
+                                              #computed inverse matrix
     message("getting cached data")
     return(m)
   }
